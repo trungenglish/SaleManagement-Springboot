@@ -7,6 +7,6 @@ public class TestController {
 
     @GetMapping("/")
     public String test(){
-        return "layouts/index";
+        return "layouts/login";
     }
 }
