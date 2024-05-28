@@ -20,7 +20,7 @@ spring.datasource.username=username
 spring.datasource.password=password
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-// Hibernate properties use to update the database schema(add,edit,delete column) but don't drop the table 
+# Hibernate properties use to update the database schema(add,edit,delete column) but don't drop the table 
 spring.jpa.show-sql=true
 spring.jpa.hibernate.ddl-auto=update`
 ```
