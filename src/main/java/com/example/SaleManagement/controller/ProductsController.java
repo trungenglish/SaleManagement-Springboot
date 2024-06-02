@@ -21,6 +21,8 @@ public class ProductsController {
     public String showProductsList(Model model) {
         List<Product> products = repository.findAll();
         model.addAttribute("products", products);
-        return "products";
+        return "layouts/index";
     }
+
+
 }
