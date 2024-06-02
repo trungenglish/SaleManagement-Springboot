@@ -20,18 +20,19 @@
             <div class="col-md-6 right">
                 <div class="input-box">
                     <header>Login account</header>
-                    <div class="input-field">
-                        <input type="text" class="input" id="Username" required autocomplete="off"/>
-                        <label for="Username">Email</label>
-                    </div>
-                    <div class="input-field">
-                        <input type="password" class="input" id="password" required />
-                        <label for="password">Password</label>
-                    </div>
-                    <div class="input-field">
-                        <input type="submit" class="submit" value="Sign In"/>
-                    </div>
-
+                    <form action="/login" method="post">
+                        <div class="input-field">
+                            <input type="text" class="input" id="Username" required autocomplete="off"/>
+                            <label for="Username">Email</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="password" class="input" id="password" required />
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="submit" class="submit" value="Log In"/>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
