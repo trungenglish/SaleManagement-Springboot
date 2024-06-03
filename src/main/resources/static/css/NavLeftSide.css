@@ -48,6 +48,7 @@ h4 {
     min-width: 0;
     overflow: hidden;
     transition: all 0.35s ease-in-out;
+    width: 100%;
     background: var(--bs-dark-bg-subtle);
 }
 
@@ -100,4 +101,57 @@ a.sidebar-link{
 .sidebar-link[data-bs-toggle="collapse"].collapsed::after{
     transform: rotate(45deg);
     transition: all .2s ease-out;
+}
+
+.avatar{
+    height: 40px;
+    width: 40px;
+}
+
+.navbar-expand .navbar-nav{
+    margin-left: auto;
+}
+
+/* Sidebar Toggle */
+#sidebar.collapsed{
+    margin-left: -264px;
+}
+
+/* Footer and Navbar */
+@media(max-width:767.98px){
+    .navbar,
+    footer{
+        width: 100vw;
+    }
+}
+
+/* Theme Toggler */
+
+.theme-toggle{
+    position: fixed;
+    top: 50px;
+    transform: translateY(-65%);
+    text-align: center;
+    z-index: 10;
+    right: 0;
+    left: auto;
+    border: none;
+    background: var(--bs-body-color);
+}
+
+html[data-bs-theme='dark'] .theme-toggle .fa-sun,
+html[data-bs-theme='light'] .theme-toggle .fa-moon{
+    cursor: pointer;
+    padding: 10px;
+    display: block;
+    font-size: 1.25rem;
+    color: #FFF;
+}
+
+html[data-bs-theme='dark'] .theme-toggle .fa-moon{
+    display: none;
+}
+
+html[data-bs-theme='light'] .theme-toggle .fa-sun{
+    display: none;
 }
