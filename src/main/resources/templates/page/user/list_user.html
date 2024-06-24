@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main class="content px-3 py-2" th:fragment="content">
+    <div class="container-fluid">
+        <div class="card border-0">
+            <div class="card-header">
+                <h5 class="card-title">
+                    User Table
+                </h5>
+                <h6 class="card-subtitle text-muted">
+                    Danh sách các tài khoản đã đăng ký
+                </h6>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">FullName</th>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="tempUser: ${users}">
+                            <td th:text="${tempUser.id}"></td>
+                            <td th:text="${tempUser.fullname}"></td>
+                            <td th:text="${tempUser.username}"></td>
+                            <td th:text="${tempUser.email}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

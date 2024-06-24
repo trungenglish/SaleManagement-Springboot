@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Left Navigation Side</title>
-    <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>
-    <link href="/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/NavLeftSide.css">
+<!--    <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>-->
+<!--    <link href="/css/bootstrap.css" rel="stylesheet">-->
+<!--    <link rel="stylesheet" href="/css/NavLeftSide.css">-->
 </head>
 <body>
-<div class="wrapper">
-    <aside id="sidebar">
-        <!-- Content For Sidebar -->
+    <!-- Content For Sidebar -->
+    <aside id="sidebar" th:fragment="sidebar">
+
         <div class="h-100">
-            <div class="sidebar-logo">
-                <a href="#">Trung</a>
-                <span class="my-2  float-end text-white">Log Out</span>
-            </div>
+            <!-- Form Logout -->
+            <form action="#" th:action="@{/logout}" method="POST">
+                <div class="sidebar-logo">
+                    <a href="#">Trung</a>
+                    <button type="submit" class="btn ms-5 btn-transparent border-0 sidebar-link">
+                        <span class="my-2  float-end text-white">
+                            <i class="fa-solid fa-right-from-bracket pe-2 "></i>
+                            Log Out
+                        </span>
+                    </button>
+                </div>
+            </form>
 
             <ul class="sidebar-nav">
                 <li class="sidebar-header">
@@ -28,6 +36,10 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+<!--                     collapsed là trạng thái ban đầu đang thu gọn của thẻ-->
+<!--                     data-bs-target là id của thẻ cần thu gọn,-->
+<!--                     data-bs-toggle là thuộc tính để mở rộng hoặc thu gọn thẻ-->
+<!--                     aria-expanded là thuộc tính để xác định phần tử mục tiêu đang được thu gọn-->
                     <a href="#" class="sidebar-link collapsed" data-bs-target="#products" data-bs-toggle="collapse"
                        aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
                         Products
@@ -69,36 +81,20 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-target="#employees" data-bs-toggle="collapse"
+                       aria-expanded="false"><i class="fa-solid fa-person pe-2"></i>
+                        Employees
+                    </a>
+                    <ul id="employees" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">List Employee</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
+
         </div>
     </aside>
-    <div class="main">
-        <nav class="navbar navbar-expand px-3 border-bottom">
-            <button class="btn" id="sidebar-toggle" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse navbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                            <img src="" class="avatar img-fluid rounded" alt="">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a href="" class="dropdown-item"></a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <!-- Content For Main -->
-        <main class="content px-3 py-2"></main>
-        <a href="#" class="theme-toggle">
-            <i class="fa-regular fa-moon"></i>
-            <i class="fa-regular fa-sun"></i>
-        </a>
-    </div>
-</div>
-<script src="/js/bootstrap.bundle.js"></script>
-<script src="/js/NavLeftSide.js"></script>
 </body>
 </html>

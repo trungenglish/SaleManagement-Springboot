@@ -1,5 +1,6 @@
 package com.example.SaleManagement.controller;
 
+
 import com.example.SaleManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
+     @Autowired
+     private UserService userService;
 
-//    @GetMapping("/login")
-//    public String login(Model model){
-//        model.addAttribute("user", userService.getUsers());
-//        return "/login";
-//    }
+    @GetMapping("/list")
+    public String list(Model model){
+        model.addAttribute("users",userService.getListUser());
+        return "/layouts/user/list_user";
+    }
 }
