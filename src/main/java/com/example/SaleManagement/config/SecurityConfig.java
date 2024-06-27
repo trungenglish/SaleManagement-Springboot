@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/authenticateTheUser")
-                        .defaultSuccessUrl("/users/list", true)
+                        .defaultSuccessUrl("/index", true)
                         .permitAll())
                 .logout(logout -> logout.permitAll());
         return http.build();

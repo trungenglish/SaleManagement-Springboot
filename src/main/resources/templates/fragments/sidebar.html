@@ -30,7 +30,7 @@
                     Admin Elements
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a th:href="@{/index}" class="sidebar-link">
                         <i class="fa-solid fa-list pe-2"></i>
                         Dashboard
                     </a>
@@ -74,7 +74,7 @@
                     </a>
                     <ul id="customers" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">List Customer</a>
+                            <a th:href="@{/users/list}" class="sidebar-link">List Customer</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link">Manager Customer Reviews</a>

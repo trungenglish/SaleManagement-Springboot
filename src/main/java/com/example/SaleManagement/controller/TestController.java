@@ -8,9 +8,8 @@ public class TestController {
     public String login(){
         return "login";
     }
-
-//    @GetMapping("/")
-//    public String home() {
-//        return "/layout/user/list_user";
-//    }
+    @GetMapping("/index")
+    public String index() {
+        return "layouts/dashboard/index";
+    }
 }

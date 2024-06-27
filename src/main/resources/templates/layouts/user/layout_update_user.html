@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/NavLeftSide.css">
+</head>
+<body>
+<div class="wrapper">
+    <!-- Content For Sidebar -->
+    <span th:replace="~{fragments/sidebar :: sidebar}"></span>
+
+    <div class="main">
+        <!-- Header -->
+        <span th:replace="~{fragments/header :: header}"></span>
+
+        <!-- Content For Main -->
+        <main class="content px-3 py-2">
+            <h2 class="text-center">Edit User</h2>
+            <form action="#" th:action="@{/users/update}"
+                             th:object="${user}" method="Post">
+                <input type="hidden" th:field="*{id}">
+                <div class="mb-3">
+                    <label for="InputUsername" class="form-label">UserName</label>
+                    <input type="text" th:field="*{username}" disabled class="w-75 form-control" id="InputUsername" placeholder="UserName" aria-describedby="username" required>
+                    <div id="username" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="InputEmail" class="form-label">Email</label>
+                    <input type="email" th:field="*{email}" class="w-75 form-control" id="InputEmail" placeholder="Email" aria-describedby="email" required
+                           autocomplete="false">
+                    <div id="email" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="InputFullname" class="form-label">FullName</label>
+                    <input type="text" th:field="*{fullname}" class="w-75 form-control" id="InputFullname" placeholder="FullName" aria-describedby="fullname">
+                    <div id="fullname" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="InputPhone" class="form-label">Phone</label>
+                    <input type="text" th:field="*{phone}" class="w-75 form-control" id="InputPhone" placeholder="Phone" aria-describedby="phone">
+                    <div id="phone" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="InputPassword" class="form-label">Password</label>
+                    <input type="password" th:field="*{password}" class="w-75 form-control" id="InputPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </main>
+        <a href="#" class="theme-toggle">
+            <i class="fa-regular fa-moon"></i>
+            <i class="fa-regular fa-sun"></i>
+        </a>
+    </div>
+</div>
+<script src="/js/bootstrap.bundle.js"></script>
+<script src="/js/NavLeftSide.js"></script>
+</body>
+</html>

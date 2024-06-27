@@ -4,5 +4,6 @@ import com.example.SaleManagement.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsersRepository extends JpaRepository<User, Integer>{
-    public User findByUsername(String username);// method này tìm theo trong entity User có thuộc tính username
+    boolean existsByUsername(String username);// method này kiểm tra xem username đã tồn tại chưa
+    User findById(int id); // method này tìm theo id
 }
