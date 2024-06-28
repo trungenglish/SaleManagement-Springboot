@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>List User</title>
+    <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/NavLeftSide.css">
+</head>
+<body>
+<div class="wrapper">
+    <!-- Content For Sidebar -->
+    <span th:replace="~{fragments/sidebar :: sidebar}"></span>
+
+    <div class="main">
+        <!-- Header -->
+        <span th:replace="~{fragments/header :: header}"></span>
+
+        <!-- Content For Main -->
+        <main class="content px-3 py-2">
+            <span th:replace="~{page/employee/list_employee :: content}"></span>
+            <div class="modal fade" id="ModalCenter" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog ">
+                    <form action="#" th:action="@{/employees/add}"
+                          th:object="${employee}" method="Post">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="ModalCenterTitle">Add Employee</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="InputCccd" class="form-label">CCCD</label>
+                                    <input type="text" th:field="*{cccd}" class="form-control" id="InputCccd"
+                                           aria-describedby="cccd" required autocomplete="off"/>
+                                    <span id="cccdError" class="form-text text-danger"></span>
+                                    <div id="cccd" class="form-text">CCCD must be 12 characters long.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="InputName" class="form-label">Name</label>
+                                    <input type="text" th:field="*{name}" class="form-control" id="InputName"
+                                           aria-describedby="Name" required autocomplete="off"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="InputEmail" class="form-label">Email</label>
+                                    <input type="email" th:field="*{email}" class="form-control" id="InputEmail"
+                                           aria-describedby="emailHelp" required autocomplete="off"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="InputPhone" class="form-label">Phone</label>
+                                    <input type="text" th:field="*{phone}" class="form-control" id="InputPhone"
+                                           aria-describedby="phone"
+                                           required autocomplete="off"/>
+                                    <span id="phoneError" class="form-text text-danger"></span>
+                                    <div id="phone" class="form-text">Phone must be 10 characters long.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="InputPosition" class="form-label">Position</label>
+                                    <input type="text" th:field="*{position}" class="form-control" id="InputPosition"
+                                           aria-describedby="position"
+                                           required autocomplete="off"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <button id="submitButton" type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <a href="#" class="theme-toggle">
+            <i class="fa-regular fa-moon"></i>
+            <i class="fa-regular fa-sun"></i>
+        </a>
+    </div>
+</div>
+<script src="/js/bootstrap.bundle.js"></script>
+<script src="/js/NavLeftSide.js"></script>
+<script>
+    document.getElementById('InputCccd').addEventListener('change', function () {
+        var cccd = this.value;
+        var button = document.getElementById('submitButton');
+
+        // Gửi yêu cầu AJAX đến server để kiểm tra username
+        fetch('/employees/checkCccd?cccd=' + cccd)
+            .then(response => response.json())
+            .then(data => {
+                var cccdError = document.getElementById('cccdError');
+                if (data) {
+                    // Nếu username đã tồn tại, hiển thị thông báo lỗi
+                    cccdError.textContent = 'Nhân viên này đã có trong hệ thống';
+                    button.disabled = true;
+                } else {
+                    // Nếu không có lỗi, xóa thông báo lỗi
+                    cccdError.textContent = '';
+                    button.disabled = false;
+                }
+            });
+    });
+    document.getElementById('InputCccd').addEventListener('input', function () {
+        var cccd = this.value;
+        var cccdError = document.getElementById('cccdError');
+        var button = document.getElementById('submitButton');
+
+        // Kiểm tra cccd
+        var cccdPattern = /^\d{12}$/;
+        if (!cccdPattern.test(cccd)) {
+            cccdError.textContent = 'CCCD phải có đủ 12 số';
+            button.disabled = true;
+        } else {
+            cccdError.textContent = '';
+            button.disabled = false;
+        }
+    });
+
+    document.getElementById('InputPhone').addEventListener('input', function () {
+        var phone = this.value;
+        var phoneError = document.getElementById('phoneError');
+        var button = document.getElementById('submitButton');
+
+        // Kiểm tra cccd
+        var cccdPattern = /^\d{10}$/;
+        if (!cccdPattern.test(phone)) {
+            phoneError.textContent = 'Phone phải có đủ 10 số';
+            button.disabled = true;
+        } else {
+            phoneError.textContent = '';
+            button.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>

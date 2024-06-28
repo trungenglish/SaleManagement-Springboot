@@ -28,15 +28,15 @@ public class UserService  {
 
     public User addUser (User request){
 
-        if (usersRepository.existsByUsername(request.getUsername())){
-            throw new RuntimeException("User existed");
-        }
+//        if (usersRepository.existsByUsername(request.getUsername())){
+//            throw new RuntimeException("User existed");
+//        }
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 
         User user = new User();
         user.setUsername(request.getUsername());
-        user.setFullname(request.getFullname());
+        user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPhone(request.getPhone());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -48,7 +48,7 @@ public class UserService  {
         user.setPhone(request.getPhone());
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
-        user.setFullname(request.getFullname());
+        user.setName(request.getName());
 
         return usersRepository.save(user);
     }

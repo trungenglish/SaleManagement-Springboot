@@ -56,14 +56,14 @@
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed" data-bs-target="#orders" data-bs-toggle="collapse"
                        aria-expanded="false"><i class="fa-solid fa-clipboard pe-2"></i>
-                        Orders
+                        Invoice
                     </a>
                     <ul id="orders" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item px-">
-                            <a href="#" class="sidebar-link">List Order</a>
+                            <a href="#" class="sidebar-link">List Invoice</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Processing Return Orders</a>
+                            <a href="#" class="sidebar-link"></a>
                         </li>
                     </ul>
                 </li>
@@ -88,7 +88,7 @@
                     </a>
                     <ul id="employees" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">List Employee</a>
+                            <a th:href="@{/employees/list}" class="sidebar-link">List Employee</a>
                         </li>
                     </ul>
                 </li>

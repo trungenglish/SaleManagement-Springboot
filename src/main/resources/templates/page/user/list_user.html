@@ -23,7 +23,7 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">FullName</th>
+                        <th scope="col">Name</th>
                         <th scope="col">UserName</th>
                         <th scope="col">Email</th>
                         <th scope="col">Phone</th>
@@ -33,7 +33,7 @@
                     <tbody>
                         <tr th:each="tempUser: ${users}">
                             <td th:text="${tempUser.id}"></td>
-                            <td th:text="${tempUser.fullname}"></td>
+                            <td th:text="${tempUser.name}"></td>
                             <td th:text="${tempUser.username}"></td>
                             <td th:text="${tempUser.email}"></td>
                             <td th:text="${tempUser.phone}"></td>
