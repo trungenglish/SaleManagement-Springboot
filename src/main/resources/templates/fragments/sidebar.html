@@ -46,7 +46,7 @@
                     </a>
                     <ul id="products" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Category</a>
+                            <a th:href="@{/categories/list}" class="sidebar-link">Category</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link">List Products</a>
@@ -89,6 +89,17 @@
                     <ul id="employees" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
                             <a th:href="@{/employees/list}" class="sidebar-link">List Employee</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-target="#suppliers" data-bs-toggle="collapse"
+                       aria-expanded="false"><i class="fa-solid fa-person pe-2"></i>
+                        Suppliers
+                    </a>
+                    <ul id="suppliers" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link">List Supplier</a>
                         </li>
                     </ul>
                 </li>

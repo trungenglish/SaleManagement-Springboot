@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>List User</title>
 </head>
 <body>
     <div class="container-fluid" th:fragment="content">
@@ -16,6 +16,10 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCenter">
                         Add User
                     </button>
+
+                    <a type="button" th:href="@{/report/excel-user}" class="btn btn-success">
+                        Export Excel
+                    </a>
                 </h6>
             </div>
             <div class="card-body">
@@ -32,17 +36,17 @@
                     </thead>
                     <tbody>
                         <tr th:each="tempUser: ${users}">
-                            <td th:text="${tempUser.id}"></td>
+                            <td th:text="${tempUser.idUser}"></td>
                             <td th:text="${tempUser.name}"></td>
                             <td th:text="${tempUser.username}"></td>
                             <td th:text="${tempUser.email}"></td>
                             <td th:text="${tempUser.phone}"></td>
                             <!-- Add Update and Delete Button -->
                             <td >
-                                <a th:href="@{/users/formUpdate(userId=${tempUser.id})}" class="btn btn-info btn-sm">
+                                <a th:href="@{/users/formUpdate(userId=${tempUser.idUser})}" class="btn btn-info btn-sm">
                                     Update
                                 </a>
-                                <a th:href="@{/users/delete(userId=${tempUser.id})}" class="btn btn-danger btn-sm"
+                                <a th:href="@{/users/delete(userId=${tempUser.idUser})}" class="btn btn-danger btn-sm"
                                    onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">
                                     Delete
                                 </a>

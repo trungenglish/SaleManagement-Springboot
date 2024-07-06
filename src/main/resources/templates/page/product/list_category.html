@@ -1,52 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>List Employee</title>
+    <title>List Category</title>
 </head>
 <body>
 <div class="container-fluid" th:fragment="content">
     <div class="card border-0">
         <div class="card-header">
             <h5 class="card-title">
-                Employee Table
+                Category Table
             </h5>
             <h6 class="card-subtitle text-muted">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCenter">
-                    Add Employee
+                    Add Category
                 </button>
-                <a type="button" th:href="@{/report/excel}" class="btn btn-success">
-                    Export Excel
-                </a>
             </h6>
         </div>
         <div class="card-body">
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">CCCD</th>
+                    <th scope="col">#</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Position</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="tempEmployee: ${employees}">
-                    <td th:text="${tempEmployee.cccd}"></td>
-                    <td th:text="${tempEmployee.name}"></td>
-                    <td th:text="${tempEmployee.email}"></td>
-                    <td th:text="${tempEmployee.phone}"></td>
-                    <td th:text="${tempEmployee.position}"></td>
-
+                <tr th:each="tempCategory: ${categories}">
+                    <td th:text="${tempCategory.idCate}"></td>
+                    <td th:text="${tempCategory.name}"></td>
                     <!-- Add Update and Delete Button -->
                     <td >
-                        <a th:href="@{/employees/formUpdate(employeeCccd=${tempEmployee.cccd})}" class="btn btn-info btn-sm">
+                        <a th:href="@{/categories/formUpdate(cateId=${tempCategory.idCate})}" class="btn btn-info btn-sm">
                             Update
                         </a>
-                        <a th:href="@{/employees/delete(employeeCccd=${tempEmployee.cccd})}" class="btn btn-danger btn-sm"
+                        <a th:href="@{/categories/delete(cateId=${tempCategory.idCate})}" class="btn btn-danger btn-sm"
                            onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">
                             Delete
                         </a>

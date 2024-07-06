@@ -1,7 +1,6 @@
 package com.example.SaleManagement.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,21 +11,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "DB_Employee")
-public class Employee {
+@Table(name = "DB_Supplier")
+public class Supplier {
     @Id
-    @Column(columnDefinition = "CHAR(12)")
-    private String cccd;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idSupplier;
 
     @Column(columnDefinition = "NVARCHAR(50)")
     private String name;
 
-    @Column(columnDefinition = "VARCHAR(50)")
-    private String email;
+    @Column(columnDefinition = "NVARCHAR(100)")
+    private String address;
 
     @Column(columnDefinition = "CHAR(10)")
     private String phone;
-
-    @Column(columnDefinition = "NVARCHAR(50)")
-    private String position;
 }

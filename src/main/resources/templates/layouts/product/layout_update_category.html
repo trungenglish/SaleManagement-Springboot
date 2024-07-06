@@ -16,10 +16,21 @@
         <!-- Header -->
         <span th:replace="~{fragments/header :: header}"></span>
 
-<!--         Content For Main-->
-        <span th:replace="~{page/dashboard/index :: content}">
-
-        </span>
+        <!-- Content For Main -->
+        <main class="content px-3 py-2">
+            <h2 class="text-center">Edit Category</h2>
+            <form action="#" th:action="@{/categories/update}"
+                  th:object="${category}" method="Post">
+                <input type="hidden" th:field="*{idCate}">
+                <div class="mb-3">
+                    <label for="InputName" class="form-label">Name</label>
+                    <input type="text" th:field="*{name}" class="w-75 form-control" id="InputName" placeholder="Email" aria-describedby="name" required
+                           autocomplete="false">
+                    <div id="name" class="form-text"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </main>
         <a href="#" class="theme-toggle">
             <i class="fa-regular fa-moon"></i>
             <i class="fa-regular fa-sun"></i>

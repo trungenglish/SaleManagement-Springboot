@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>List Category</title>
+    <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/NavLeftSide.css">
+</head>
+<body>
+<div class="wrapper">
+    <!-- Content For Sidebar -->
+    <span th:replace="~{fragments/sidebar :: sidebar}"></span>
+
+    <div class="main">
+        <!-- Header -->
+        <span th:replace="~{fragments/header :: header}"></span>
+
+        <!-- Content For Main -->
+        <main class="content px-3 py-2">
+            <span th:replace="~{page/product/list_category :: content}"></span>
+            <div class="modal fade" id="ModalCenter" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog ">
+                    <form action="#" th:action="@{/categories/add}"
+                          th:object="${category}" method="Post">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="ModalCenterTitle">Add Category</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="InputName" class="form-label">Name</label>
+                                    <input type="text" th:field="*{name}" class="form-control" id="InputName"
+                                           aria-describedby="name" required autocomplete="off"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <button id="submitButton" type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <a href="#" class="theme-toggle">
+            <i class="fa-regular fa-moon"></i>
+            <i class="fa-regular fa-sun"></i>
+        </a>
+    </div>
+</div>
+<script src="/js/bootstrap.bundle.js"></script>
+<script src="/js/NavLeftSide.js"></script>
+<script>
+    document.getElementById('InputUsername').addEventListener('change', function () {
+        var username = this.value;
+        var button = document.getElementById('submitButton');
+
+        // Gửi yêu cầu AJAX đến server để kiểm tra username
+        fetch('/users/checkUsername?username=' + username)
+            .then(response => response.json())
+            .then(data => {
+                var usernameError = document.getElementById('usernameError');
+                if (data) {
+                    // Nếu username đã tồn tại, hiển thị thông báo lỗi
+                    usernameError.textContent = 'Username đã tồn tại';
+                    button.disabled = true;
+                } else {
+                    // Nếu không có lỗi, xóa thông báo lỗi
+                    usernameError.textContent = '';
+                    button.disabled = false;
+                }
+            });
+    });
+    document.getElementById('InputUsername').addEventListener('input', function () {
+        var username = this.value;
+        var usernameError = document.getElementById('usernameError');
+        var button = document.getElementById('submitButton');
+
+        // Kiểm tra username
+        var usernamePattern = /^.{5,}$/;
+        if (!usernamePattern.test(username)) {
+            usernameError.textContent = 'Username phải từ 5 ký tự';
+            button.disabled = true;
+        } else {
+            usernameError.textContent = '';
+            button.disabled = false;
+        }
+    });
+    document.getElementById('InputPhone').addEventListener('input', function () {
+        var phone = this.value;
+        var phoneError = document.getElementById('phoneError');
+        var button = document.getElementById('submitButton');
+
+        // Kiểm tra cccd
+        var phonePattern = /^\d{10}$/;
+        if (!phonePattern.test(phone)) {
+            phoneError.textContent = 'Phone phải có đủ 10 số';
+            button.disabled = true;
+        } else {
+            phoneError.textContent = '';
+            button.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>

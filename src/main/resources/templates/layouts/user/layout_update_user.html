@@ -21,7 +21,7 @@
             <h2 class="text-center">Edit User</h2>
             <form action="#" th:action="@{/users/update}"
                              th:object="${user}" method="Post">
-                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{idUser}">
                 <div class="mb-3">
                     <label for="InputUsername" class="form-label">UserName</label>
                     <input type="text" th:field="*{username}" disabled class="w-75 form-control" id="InputUsername" placeholder="UserName" aria-describedby="username" required>

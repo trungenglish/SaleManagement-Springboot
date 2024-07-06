@@ -1,7 +1,6 @@
 package com.example.SaleManagement.controller;
 
 import com.example.SaleManagement.model.Employee;
-import com.example.SaleManagement.model.User;
 import com.example.SaleManagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
