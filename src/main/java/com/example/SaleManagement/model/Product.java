@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.sql.Blob;
+import java.util.List;
+
 
 //thư viện lombook giúp tự động sinh ra các phương thức getter, setter, constructor, toString
 @Getter
@@ -23,6 +25,7 @@ public class Product {
     @Column(columnDefinition = "VARCHAR(50)")
     private String namePro;
 
+    @Column(columnDefinition = "INTEGER")
     private int quantity;
 
     @Column(columnDefinition = "DECIMAL(19,2)")
@@ -32,11 +35,17 @@ public class Product {
     @Column(columnDefinition = "NVARCHAR(225)")
     private String description;
 
+    @Lob
+    private Blob imageFile;
+
     @ManyToOne
     @JoinColumn(name = "idCate")
     private Category category;
 
-    @ManyToOne
-    @JoinColumn(name = "idSupplier")
-    private Supplier supplier;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<PurchaseOrderItem> purchaseOrderItems;
+
 }

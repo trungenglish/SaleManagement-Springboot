@@ -17,7 +17,7 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idSupplier;
 
-    @Column(columnDefinition = "NVARCHAR(50)")
+    @Column(columnDefinition = "NVARCHAR(100)")
     private String name;
 
     @Column(columnDefinition = "NVARCHAR(100)")

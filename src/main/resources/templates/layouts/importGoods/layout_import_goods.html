@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>List Product</title>
     <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/NavLeftSide.css">
@@ -18,17 +18,7 @@
 
         <!-- Content For Main -->
         <main class="content px-3 py-2">
-            <h2 class="text-center">Edit Category</h2>
-            <form action="#" th:action="@{/categories/update}"
-                  th:object="${category}" method="Post">
-                <input type="hidden" th:field="*{idCate}">
-                <div class="mb-3">
-                    <label for="InputName" class="form-label">Name</label>
-                    <input type="text" th:field="*{name}" class="w-75 form-control" id="InputName" placeholder="Name" aria-describedby="name" required
-                           autocomplete="false">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            <span th:replace="~{page/importGoods/import_goods :: content}"></span>
         </main>
         <a href="#" class="theme-toggle">
             <i class="fa-regular fa-moon"></i>

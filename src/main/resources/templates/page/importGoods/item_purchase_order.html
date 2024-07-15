@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>List Category</title>
+</head>
+<body>
+
+    <div class="container-fluid" th:fragment="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card border-0">
+                    <!-- Nội dung cột 1 -->
+                    <div class="card-body">
+                        <h5 class="card-title">Number of products currently on sale</h5>
+                        <p>Search</p>
+                        <table class="table table-bordered border-primary">
+                            <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                            </thead>
+                            <tbody id="productTableBody">
+                            <!-- Product rows will be populated here -->
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col">
+                                <p>Quantity: </p>
+                                <input type="number" class="form-control" id="quantityInput" name="quantity" required autocomplete="off"/>
+                            </div>
+                            <div class="col">
+                                <p>Price: </p>
+                                <input type="number" class="form-control" id="priceInput" name="price" required autocomplete="off"/>
+                            </div>
+                            <div class="col d-flex align-items-end">
+                                <button id="addButton" type="button" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0">
+                    <!-- Nội dung cột 2 -->
+                    <div class="card-body">
+                        <h5 class="card-title">Create Purchase Order</h5>
+                        <p class="card-text">Nội dung của cột 2.</p>
+                        <form id="purchaseOrderForm">
+                            <div class="mb-3">
+                                <label class="form-label">Supplier</label>
+                                <select id="supplier" class="form-select" required>
+                                    <!-- Options will be populated dynamically -->
+                                </select>
+                            </div>
+                            <table class="table table-bordered border-primary">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Total</th>
+                                </tr>
+                                </thead>
+                                <tbody id="purchaseOrderBody">
+                                <!-- Rows will be added here -->
+                                </tbody>
+                            </table>
+                            <div class="mb-3">
+                                <label class="form-label">Total Amount: </label>
+                                <span id="totalAmount">0</span>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="submitForm()">Save Purchase Order</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

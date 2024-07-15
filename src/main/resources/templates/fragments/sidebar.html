@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Left Navigation Side</title>
-<!--    <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>-->
-<!--    <link href="/css/bootstrap.css" rel="stylesheet">-->
-<!--    <link rel="stylesheet" href="/css/NavLeftSide.css">-->
+
 </head>
 <body>
     <!-- Content For Sidebar -->
-    <aside id="sidebar" th:fragment="sidebar">
+    <aside  id="sidebar" th:fragment="sidebar">
 
         <div class="h-100">
             <!-- Form Logout -->
@@ -49,7 +47,7 @@
                             <a th:href="@{/categories/list}" class="sidebar-link">Category</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">List Products</a>
+                            <a th:href="@{/products/list}" class="sidebar-link">List Products</a>
                         </li>
                     </ul>
                 </li>
@@ -61,9 +59,6 @@
                     <ul id="orders" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item px-">
                             <a href="#" class="sidebar-link">List Invoice</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link"></a>
                         </li>
                     </ul>
                 </li>
@@ -99,12 +94,25 @@
                     </a>
                     <ul id="suppliers" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a class="sidebar-link">List Supplier</a>
+                            <a th:href="@{/suppliers/list}" class="sidebar-link">List Supplier</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-target="#importGoods" data-bs-toggle="collapse"
+                       aria-expanded="false"><i class="fa-solid fa-person pe-2"></i>
+                        Import goods
+                    </a>
+                    <ul id="importGoods" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a th:href="@{/import-goods/list}" class="sidebar-link">List Item Purchase Order</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a th:href="@{/purchase-orders/showFormPurchaseOrder}" class="sidebar-link">Purchase Order From Supplier</a>
                         </li>
                     </ul>
                 </li>
             </ul>
-
         </div>
     </aside>
 </body>

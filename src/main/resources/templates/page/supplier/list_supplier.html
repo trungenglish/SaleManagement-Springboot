@@ -2,20 +2,23 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>List Category</title>
+    <title>List Supplier</title>
 </head>
 <body>
 <div class="container-fluid" th:fragment="content">
     <div class="card border-0">
         <div class="card-header">
             <h5 class="card-title">
-                Category Table
+                Supplier Table
             </h5>
             <h6 class="card-subtitle text-muted">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCenter">
-                    Add Category
+                    Add Supplier
                 </button>
+                <a type="button" th:href="@{/report/excel-supplier}" class="btn btn-success">
+                    Export Excel
+                </a>
             </h6>
         </div>
         <div class="card-body">
@@ -24,19 +27,24 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Address</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="tempCategory: ${categories}">
-                    <td th:text="${tempCategory.idCate}"></td>
-                    <td th:text="${tempCategory.name}"></td>
+                <tr th:each="tempSupplier: ${suppliers}">
+                    <td th:text="${tempSupplier.idSupplier}"></td>
+                    <td th:text="${tempSupplier.name}"></td>
+                    <td th:text="${tempSupplier.phone}"></td>
+                    <td th:text="${tempSupplier.address}"></td>
+
                     <!-- Add Update and Delete Button -->
                     <td >
-                        <a th:href="@{/categories/formUpdate(cateId=${tempCategory.idCate})}" class="btn btn-info btn-sm">
+                        <a th:href="@{/suppliers/formUpdate(supId=${tempSupplier.idSupplier})}" class="btn btn-info btn-sm">
                             Update
                         </a>
-                        <a th:href="@{/categories/delete(cateId=${tempCategory.idCate})}" class="btn btn-danger btn-sm"
+                        <a th:href="@{/suppliers/delete(supId=${tempSupplier.idSupplier})}" class="btn btn-danger btn-sm"
                            onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">
                             Delete
                         </a>
@@ -47,6 +55,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

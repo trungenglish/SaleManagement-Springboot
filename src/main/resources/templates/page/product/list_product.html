@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>List Product</title>
 </head>
 <body>
+<div class="container-fluid" th:fragment="content">
+    <div class="card border-0">
+        <div class="card-header">
+            <h5 class="card-title">
+                Product Table
+            </h5>
+            <h6 class="card-subtitle text-muted">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCenter">
+                    Add Product
+                </button>
+                <a type="button" th:href="@{/report/excel-product}" class="btn btn-success">
+                    Export Excel
+                </a>
+            </h6>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="tempProduct: ${products}">
+                    <td th:text="${tempProduct.idPro}"></td>
+                    <td th:text="${tempProduct.namePro}"></td>
+                    <td th:text="${tempProduct.category.name}"></td>
+                    <td th:text="${tempProduct.quantity}"></td>
+                    <td th:text="${tempProduct.price}"></td>
+                    <td><img width="150px" height="150px" class=" img-thumbnail"  th:src="@{/products/display(proId=${tempProduct.idPro})}" alt="ProductImage"></td>
+                    <!-- Add Update and Delete Button -->
+                    <td >
+                        <a th:href="@{/products/formUpdate(proId=${tempProduct.idPro})}" class="btn btn-info btn-sm">
+                            Update
+                        </a>
+                        <a th:href="@{/products/showDetail(proId=${tempProduct.idPro})}" class="btn btn-primary btn-sm">
+                            Detail
+                        </a>
+                        <a th:href="@{/products/delete(idPro=${tempProduct.idPro})}" class="btn btn-danger btn-sm"
+                           onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Vertically centered modal -->
 
+<!--        <div class="container-fluid">-->
+<!--            <div class="inner-html" style="margin-left: 210px;">-->
+
+<!--            </div>-->
+<!--        </div>-->
 </body>
 </html>

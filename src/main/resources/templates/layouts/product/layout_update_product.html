@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Product</title>
+    <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/NavLeftSide.css">
 </head>
 <body>
+<div class="wrapper">
+    <!-- Content For Sidebar -->
+    <span th:replace="~{fragments/sidebar :: sidebar}"></span>
 
+    <div class="main">
+        <!-- Header -->
+        <span th:replace="~{fragments/header :: header}"></span>
+
+        <!-- Content For Main -->
+        <main class="content px-3 py-2">
+            <h2 class="text-center">Edit Product</h2>
+            <form action="#" th:action="@{/products/update}"
+                  th:object="${product}" method="Post">
+                <input type="hidden" th:field="*{idPro}">
+                <div class="mb-3">
+                    <label for="InputName" class="form-label">Name</label>
+                    <input type="text" th:field="*{namePro}" class="w-75 form-control" id="InputName" placeholder="Name" aria-describedby="name" required
+                           autocomplete="false">
+                </div>
+                <div class="mb-3">
+                    <label for="InputPrice" class="form-label">Price</label>
+                    <input type="number" min="0" th:field="*{price}" class="w-75 form-control" id="InputPrice" placeholder="Price" aria-describedby="name" required
+                           autocomplete="false">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    <select class="form-select w-75" th:field="*{category}" aria-label="Default select example">
+                        <option value="" selected>Choose Category</option>
+                        <option
+                                th:value="${tempCategory.idCate}"
+                                th:each="tempCategory: ${categories}"
+                                th:text="${tempCategory.name}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="InputQuantity" class="form-label">Quantity</label>
+                    <input type="number" min="0" th:field="*{quantity}" class="w-75 form-control" id="InputQuantity" placeholder="Quantity" aria-describedby="name" required
+                           autocomplete="false">
+                </div>
+                <div class="mb-3">
+                    <label for="InputDescription" class="form-label">Description</label>
+                    <textarea class="form-control w-75" aria-describedby="description" th:field="*{description}" id="InputDescription" rows="3">
+                                    </textarea>
+                </div>
+                <div class="input-group mb-3  w-75">
+                    <input type="file" class="form-control" id="inputGroupFile" name="imageFile" accept="image/jpeg, image/png">
+                    <label class="input-group-text" for="inputGroupFile">Upload</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </main>
+        <a href="#" class="theme-toggle">
+            <i class="fa-regular fa-moon"></i>
+            <i class="fa-regular fa-sun"></i>
+        </a>
+    </div>
+</div>
+<script src="/js/bootstrap.bundle.js"></script>
+<script src="/js/NavLeftSide.js"></script>
 </body>
 </html>

@@ -24,6 +24,10 @@ public class UserService  {
         return usersRepository.findAll();
     }
 
+    public long countUsers(){
+        return usersRepository.count();
+    }
+
     public boolean existsByUsername(String username) {
         return usersRepository.existsByUsername(username);
     }

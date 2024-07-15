@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>List Category</title>
+    <title>List Supplier</title>
     <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/NavLeftSide.css">
@@ -18,15 +18,15 @@
 
         <!-- Content For Main -->
         <main class="content px-3 py-2">
-            <span th:replace="~{page/product/list_category :: content}"></span>
+            <span th:replace="~{page/supplier/list_supplier :: content}"></span>
             <div class="modal fade" id="ModalCenter" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog ">
-                    <form action="#" th:action="@{/categories/add}"
-                          th:object="${category}" method="Post">
+                    <form action="#" th:action="@{/suppliers/add}"
+                          th:object="${supplier}" method="Post">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="ModalCenterTitle">Add Category</h1>
+                                <h1 class="modal-title fs-5" id="ModalCenterTitle">Add Supplier</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
@@ -35,6 +35,17 @@
                                     <label for="InputName" class="form-label">Name</label>
                                     <input type="text" th:field="*{name}" class="form-control" id="InputName"
                                            aria-describedby="name" required autocomplete="off"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="InputPhone" class="form-label">Phone</label>
+                                    <input type="text" th:field="*{phone}" class="form-control" id="InputPhone"
+                                           aria-describedby="phone" required autocomplete="off"/>
+                                    <span id="phoneError" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="InputAddress" class="form-label">Address</label>
+                                    <input type="text" th:field="*{address}" class="form-control" id="InputAddress"
+                                           aria-describedby="address" required autocomplete="off"/>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
@@ -55,5 +66,21 @@
 </div>
 <script src="/js/bootstrap.bundle.js"></script>
 <script src="/js/NavLeftSide.js"></script>
+<script>
+    document.getElementById('InputPhone').addEventListener('input', function () {
+        var phone = this.value;
+        var phoneError = document.getElementById('phoneError');
+        var button = document.getElementById('submitButton');
+
+        var phonePattern = /^\d{10}$/;
+        if (!phonePattern.test(phone)) {
+            phoneError.textContent = 'Phone phải có đủ 10 số';
+            button.disabled = true;
+        } else {
+            phoneError.textContent = '';
+            button.disabled = false;
+        }
+    });
+</script>
 </body>
 </html>

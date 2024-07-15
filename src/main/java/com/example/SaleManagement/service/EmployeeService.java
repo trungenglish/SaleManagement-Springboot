@@ -25,6 +25,10 @@ public class EmployeeService {
         return employeesRepository.existsByCccd(cccd);
     }
 
+    public long countEmployees(){
+        return employeesRepository.count();
+    }
+
     public Employee addEmployee(Employee request){
         Employee employee = new Employee();
 

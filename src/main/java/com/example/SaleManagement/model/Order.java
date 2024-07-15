@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @Table(name = "DB_Order")
 public class Order {
     @Id
-    @Column(columnDefinition = "CHAR(6)")
-    private String idOrder;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idOrder;
 
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime dateOrder;

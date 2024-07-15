@@ -40,8 +40,8 @@ public class CategoryController {
     }
 
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam("cateId") int cccd){
-        categoryService.deleteCategory(cccd);
+    public String deleteCate(@RequestParam("cateId") int idCate){
+        categoryService.deleteCategory(idCate);
         return "redirect:/categories/list";
     }
 }
