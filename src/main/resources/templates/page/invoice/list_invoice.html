@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>List Category</title>
 </head>
 <body>
+<div class="container-fluid" th:fragment="content">
+    <div class="card border-0">
+        <div class="card-header">
+            <h5 class="card-title">
+                List Invoice
+            </h5>
+            <h6 class="card-subtitle text-muted">
+                <!-- Button trigger modal -->
+                <a type="button" th:href="@{/}" class="btn btn-success">
+                    Export Excel
+                </a>
+            </h6>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Id Order</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="tempOrder: ${order}">
+                    <td th:text="${tempOrder.idOrder}"></td>
+                    <td th:text="${tempOrder.user.name}"></td>
+                    <td th:text="${tempOrder.dateOrder}"></td>
+                    <td th:text="${tempOrder.total}"></td>
+                    <!-- Add Update and Delete Button -->
+                    <td>
+                        <a th:href="@{/import-goods/showDetail(purchaseOrderId=${tempImportGoods.idPurchaseOrder})}" class="btn btn-primary btn-sm">
+                            Detail
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

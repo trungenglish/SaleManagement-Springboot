@@ -20,7 +20,7 @@
         <main class="content px-3 py-2">
             <h2 class="text-center">Edit Product</h2>
             <form action="#" th:action="@{/products/update}"
-                  th:object="${product}" method="Post">
+                  th:object="${product}" method="Post" enctype="multipart/form-data">
                 <input type="hidden" th:field="*{idPro}">
                 <div class="mb-3">
                     <label for="InputName" class="form-label">Name</label>
@@ -43,11 +43,6 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="InputQuantity" class="form-label">Quantity</label>
-                    <input type="number" min="0" th:field="*{quantity}" class="w-75 form-control" id="InputQuantity" placeholder="Quantity" aria-describedby="name" required
-                           autocomplete="false">
-                </div>
-                <div class="mb-3">
                     <label for="InputDescription" class="form-label">Description</label>
                     <textarea class="form-control w-75" aria-describedby="description" th:field="*{description}" id="InputDescription" rows="3">
                                     </textarea>
@@ -56,7 +51,9 @@
                     <input type="file" class="form-control" id="inputGroupFile" name="imageFile" accept="image/jpeg, image/png">
                     <label class="input-group-text" for="inputGroupFile">Upload</label>
                 </div>
+                <a th:href="@{/products/list}" type="submit" class="btn btn-primary">Back To List</a>
                 <button type="submit" class="btn btn-primary">Submit</button>
+
             </form>
         </main>
         <a href="#" class="theme-toggle">

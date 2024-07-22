@@ -19,7 +19,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCate;
 
-    @Column(columnDefinition = "NVARCHAR(50)")
+    @Column(columnDefinition = "VARCHAR(50)")
     private String name;
 
     @OneToMany(mappedBy = "category")

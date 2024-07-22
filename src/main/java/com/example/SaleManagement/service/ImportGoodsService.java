@@ -1,8 +1,8 @@
 package com.example.SaleManagement.service;
 
-import com.example.SaleManagement.model.Employee;
 import com.example.SaleManagement.model.PurchaseOrder;
 import com.example.SaleManagement.repository.ImportGoodsRepository;
+import com.example.SaleManagement.repository.PurchaseOrderRepository;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -17,10 +17,18 @@ import java.util.List;
 public class ImportGoodsService {
     @Autowired
     private ImportGoodsRepository importGoodsRepository;
+    @Autowired
+    private PurchaseOrderRepository purchaseOrderRepository;
+
+    public PurchaseOrder getPurchaseOrder(int id){
+        return purchaseOrderRepository.findByIdPurchaseOrder(id);
+    }
 
     public List<PurchaseOrder> getListImportGoods(){
         return importGoodsRepository.findAll();
     }
+
+
 
     public void generateExcel(HttpServletResponse response) throws Exception {
         // code to generate excel

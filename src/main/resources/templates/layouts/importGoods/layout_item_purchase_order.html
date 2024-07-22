@@ -18,7 +18,10 @@
 
         <!-- Content For Main -->
         <main class="content px-3 py-2">
-            <div class="container-fluid" th:fragment="content">
+            <div class="container-fluid">
+                <!-- Thông báo -->
+                <div id="notification" class="alert d-none" role="alert"></div>
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card border-0">
@@ -41,7 +44,7 @@
                                         <td><input type="radio" name="product" class="product-radio"></td>
                                         <td class="product-id" th:text="${tempProduct.idPro}"></td>
                                         <td class="product-name" th:text="${tempProduct.namePro}"></td>
-                                        <td th:text="${tempProduct.quantity}"></td>
+                                        <td th:text="${tempProduct.inventory.quantity}"></td>
                                         <td th:text="${tempProduct.price}"></td>
                                     </tr>
                                     </tbody>
@@ -69,18 +72,17 @@
                             <!-- Nội dung cột 2 -->
                             <div class="card-body">
                                 <h5 class="card-title">Create Purchase Order</h5>
-                                <p class="card-text">Nội dung của cột 2.</p>
-                                <form id="purchaseOrderForm" th:action="@{/purchase-orders/add}"  th:object="${purchaseOrder}" method="post" >
+
+                                <form id="purchaseOrderForm" method="post">
                                     <div class="mb-3">
                                         <label class="form-label">Supplier</label>
-                                        <select id="supplier" th:field="*{supplier}" class="form-select" aria-label="Default select example">
+                                        <select id="supplier" class="form-select" aria-label="Default select example">
                                             <option value="" selected>Choose Category</option>
                                             <option
                                                     th:value="${tempSupplier.idSupplier}"
                                                     th:each="tempSupplier: ${suppliers}"
                                                     th:text="${tempSupplier.name}"></option>
                                         </select>
-
                                     </div>
                                     <table class="table table-bordered border-primary">
                                         <thead>
@@ -93,14 +95,13 @@
                                         </tr>
                                         </thead>
                                         <tbody id="purchaseOrderBody">
-
                                         </tbody>
                                     </table>
                                     <div class="mb-3">
                                         <label class="form-label">Total Amount: </label>
                                         <span id="totalAmount">0</span>
                                     </div>
-                                    <button type="submit" class="btn btn-primary" onclick="submitForm()">Save Purchase Order</button>
+                                    <button type="submit" class="btn btn-primary" onclick="submitForm(event)">Save Purchase Order</button>
                                 </form>
                             </div>
                         </div>
@@ -114,217 +115,132 @@
         </a>
     </div>
 </div>
+
 <script src="/js/bootstrap.bundle.js"></script>
 <script src="/js/NavLeftSide.js"></script>
 
-<!--<script>-->
-<!--    document.addEventListener('DOMContentLoaded', function () {-->
-<!--        // Add button click event-->
-<!--        document.getElementById('addButton').addEventListener('click', function () {-->
-<!--            addProductToOrder();-->
-<!--        });-->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('addButton').addEventListener('click', function () {
+            addProductToOrder();
+        });
+    });
 
-<!--        // Fetch suppliers and populate the supplier select box-->
-<!--        // fetch('/purchase-orders/suppliers')-->
-<!--        //     .then(response => response.json())-->
-<!--        //     .then(data => {-->
-<!--        //         const supplierSelect = document.getElementById('supplier');-->
-<!--        //         data.forEach(supplier => {-->
-<!--        //             const option = document.createElement('option');-->
-<!--        //             option.value = supplier.idSupplier;-->
-<!--        //             option.textContent = supplier.name;-->
-<!--        //             supplierSelect.appendChild(option);-->
-<!--        //         });-->
-<!--        //     });-->
-<!--    });-->
+    function addProductToOrder() {
+        const selectedProductRadio = document.querySelector('.product-radio:checked');
+        if (!selectedProductRadio) {
+            alert('Please select a product.');
+            return;
+        }
+        const productRow = selectedProductRadio.closest('tr');
+        const productId = productRow.querySelector('.product-id').textContent;
+        const productName = productRow.querySelector('.product-name').textContent;
+        const quantity = parseInt(document.getElementById('quantityInput').value);
+        const price = parseFloat(document.getElementById('priceInput').value);
 
-<!--    function addProductToOrder() {-->
-<!--        // Get selected product-->
-<!--        const selectedProductRadio = document.querySelector('.product-radio:checked');-->
-<!--        if (!selectedProductRadio) {-->
-<!--            alert('Please select a product.');-->
-<!--            return;-->
-<!--        }-->
-<!--        const productRow = selectedProductRadio.closest('tr');-->
-<!--        const productId = productRow.querySelector('.product-id').textContent;-->
-<!--        const productName = productRow.querySelector('.product-name').textContent;-->
-<!--        const quantity = parseInt(document.getElementById('quantityInput').value);-->
-<!--        const price = parseFloat(document.getElementById('priceInput').value);-->
+        if (isNaN(quantity) || isNaN(price) || quantity <= 0 || price <= 0) {
+            alert('Please enter valid quantity and price.');
+            return;
+        }
 
-<!--        // Validate quantity and price-->
-<!--        if (isNaN(quantity) || isNaN(price) || quantity <= 0 || price <= 0) {-->
-<!--            alert('Please enter valid quantity and price.');-->
-<!--            return;-->
-<!--        }-->
+        const total = quantity * price;
 
-<!--        // Calculate total-->
-<!--        const total = quantity * price;-->
+        const orderBody = document.getElementById('purchaseOrderBody');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+        <td>${productId}</td>
+        <td>${productName}</td>
+        <td>${quantity}</td>
+        <td>${price}</td>
+        <td>${total}</td>
+        <td><button type="button" class="btn btn-danger btn-sm remove-btn">Remove</button></td>
+    `;
+        orderBody.appendChild(row);
 
-<!--        // Add to order table-->
-<!--        const orderBody = document.getElementById('purchaseOrderBody');-->
-<!--        const row = document.createElement('tr');-->
-<!--        row.innerHTML = `-->
-<!--            <td th:field="*{{items[__${product.idPro}__].product.idPro}">${productId}</td>-->
-<!--            <td >${productName}</td>-->
-<!--            <td th:field="{items[__${product.idPro}__].quantityItemOrderPurchase}"">${quantity}</td>-->
-<!--            <td th:field="*{items[__${product.idPro}__].priceOrderPurchase}">${price}</td>-->
-<!--            <td th:field="">${total}</td>-->
-<!--        `;-->
-<!--        orderBody.appendChild(row);-->
+        const totalAmountSpan = document.getElementById('totalAmount');
+        const currentTotal = parseFloat(totalAmountSpan.textContent) || 0;
+        totalAmountSpan.textContent = (currentTotal + total).toFixed(2);
+    }
 
-<!--        // Update total amount-->
-<!--        const totalAmountSpan = document.getElementById('totalAmount');-->
-<!--        const currentTotal = parseFloat(totalAmountSpan.textContent) || 0;-->
-<!--        totalAmountSpan.textContent = (currentTotal + total).toFixed(2);-->
-<!--    }-->
+    function removeRow(row) {
+        const totalAmountSpan = document.getElementById('totalAmount');
+        const totalAmount = parseFloat(totalAmountSpan.textContent);
+        const rowTotal = parseFloat(row.cells[4].textContent);
 
-<!--    // function submitForm() {-->
-<!--    //     // Lấy nhà cung cấp đã chọn-->
-<!--    //     const supplier = document.getElementById('supplier').value;-->
-<!--    //     if (!supplier) {-->
-<!--    //         alert('Vui lòng chọn nhà cung cấp.');-->
-<!--    //         return;-->
-<!--    //     }-->
-<!--    //-->
-<!--    //     // Lấy các sản phẩm trong đơn hàng-->
-<!--    //     const orderItems = [];-->
-<!--    //     const orderBody = document.getElementById('purchaseOrderBody');-->
-<!--    //     const rows = orderBody.querySelectorAll('tr');-->
-<!--    //-->
-<!--    //     if (rows.length === 0) {-->
-<!--    //         alert('Chưa có sản phẩm nào trong đơn hàng. Vui lòng thêm sản phẩm trước khi lưu.');-->
-<!--    //         return;-->
-<!--    //     }-->
-<!--    //-->
-<!--    //     rows.forEach(row => {-->
-<!--    //         const cells = row.querySelectorAll('td');-->
-<!--    //         const item = {-->
-<!--    //             productId: cells[0].textContent,-->
-<!--    //             quantity: parseInt(cells[2].textContent),-->
-<!--    //             price: parseFloat(cells[3].textContent)-->
-<!--    //         };-->
-<!--    //         orderItems.push(item);-->
-<!--    //     });-->
-<!--    //-->
-<!--    //     const purchaseOrder = {-->
-<!--    //         supplier: {idSupplier: supplier},-->
-<!--    //         items: orderItems-->
-<!--    //     };-->
-<!--    //-->
-<!--    //     // Gửi dữ liệu đến API-->
-<!--    //     fetch('/purchase-orders/add', {-->
-<!--    //         method: 'POST',-->
-<!--    //         headers: {-->
-<!--    //             'Content-Type': 'application/json'-->
-<!--    //         },-->
-<!--    //         body: JSON.stringify(purchaseOrder)-->
-<!--    //     })-->
-<!--    //         .then(response => {-->
-<!--    //             if (!response.ok) {-->
-<!--    //                 throw new Error('Lỗi mạng: ' + response.statusText);-->
-<!--    //             }-->
-<!--    //             return response.json();-->
-<!--    //         })-->
-<!--    //         .then(data => {-->
-<!--    //             console.log(JSON.stringify(purchaseOrder));-->
-<!--    //             alert('Đơn hàng mua đã được tạo thành công.');-->
-<!--    //             // Xóa form và bảng-->
-<!--    //             document.getElementById('purchaseOrderForm').reset();-->
-<!--    //             orderBody.innerHTML = '';-->
-<!--    //             document.getElementById('totalAmount').textContent = '0';-->
-<!--    //         })-->
-<!--    //-->
-<!--    //         .catch(error => {-->
-<!--    //             console.error('Lỗi khi tạo đơn hàng mua:', error);-->
-<!--    //             alert('Không thể tạo đơn hàng mua.');-->
-<!--    //         });-->
-<!--    // }-->
-<!--</script>-->
-<!--<script>-->
-<!--    var selectedProductId;-->
-<!--    var selectedProductName;-->
+        // Update total amount
+        totalAmountSpan.textContent = (totalAmount - rowTotal).toFixed(2);
 
-<!--    document.querySelectorAll('.product-radio').forEach(function(radio) {-->
-<!--        radio.addEventListener('change', function() {-->
-<!--            var row = this.parentElement.parentElement;-->
-<!--            selectedProductId = row.querySelector('.product-id').textContent;-->
-<!--            selectedProductName = row.querySelector('.product-name').textContent;-->
-<!--        });-->
-<!--    });-->
-<!--    document.getElementById('addButton').addEventListener('click', function() {-->
-<!--        // Lấy dữ liệu từ các trường nhập liệu-->
-<!--        var quantity = document.querySelector('input[name="quantity"]').value;-->
-<!--        var price = document.querySelector('input[name="price"]').value;-->
+        // Remove the row
+        row.remove();
+    }
 
-<!--        // Tạo một hàng mới-->
-<!--        var row = document.createElement('tr');-->
+    function submitForm(event) {
+        event.preventDefault();
 
-<!--        // Tạo các ô cho hàng-->
-<!--        var idCell = document.createElement('td');-->
-<!--        var nameCell = document.createElement('td');-->
-<!--        var quantityCell = document.createElement('td');-->
-<!--        var priceCell = document.createElement('td');-->
+        const supplier = document.getElementById('supplier').value;
+        const purchaseOrderItems = [];
+        const rows = document.getElementById('purchaseOrderBody').getElementsByTagName('tr');
 
-<!--        // Đặt nội dung cho các ô-->
-<!--        idCell.textContent = selectedProductId; // Thay thế '...' bằng id sản phẩm được chọn-->
-<!--        nameCell.textContent = selectedProductName; // Thay thế '...' bằng tên sản phẩm được chọn-->
-<!--        quantityCell.textContent = quantity;-->
-<!--        priceCell.textContent = price;-->
+        for (const row of rows) {
+            const productId = row.cells[0].textContent;
+            const quantity = row.cells[2].textContent;
+            const price = row.cells[3].textContent;
 
-<!--        // Thêm các ô vào hàng-->
-<!--        row.appendChild(idCell);-->
-<!--        row.appendChild(nameCell);-->
-<!--        row.appendChild(quantityCell);-->
-<!--        row.appendChild(priceCell);-->
+            purchaseOrderItems.push({
+                product: { idPro: productId },
+                priceOrderPurchase: parseFloat(price),
+                quantityItemOrderPurchase: parseInt(quantity)
+            });
+        }
 
-<!--        // Thêm hàng vào tbody-->
-<!--        document.getElementById('purchaseOrderBody').appendChild(row);-->
+        const data = {
+            supplier: { idSupplier: supplier },
+            items: purchaseOrderItems,
+            dateOrderPurchase: new Date().toISOString()
+        };
 
-<!--        // Tạo các trường ẩn và thêm chúng vào form-->
-<!--        var form = document.querySelector('form');-->
-<!--        var idInput = document.createElement('input');-->
-<!--        idInput.type = 'hidden';-->
-<!--        idInput.name = 'products[][items.purchaseOrderId]';-->
-<!--        idInput.value = selectedProductId;-->
-<!--        form.appendChild(idInput);-->
+        fetch('/api/purchase-orders/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.ok) {
+                showNotification('Purchase order saved successfully', 'success');
+                resetForm();
+            } else {
+                showNotification('Failed to save purchase order', 'danger');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            showNotification('Error occurred while saving purchase order', 'danger');
+        });
+    }
 
-<!--        var quantityInput = document.createElement('input');-->
-<!--        quantityInput.type = 'hidden';-->
-<!--        quantityInput.name = 'products[][items.quantityItemOrderPurchase]';-->
-<!--        quantityInput.value = quantity;-->
-<!--        form.appendChild(quantityInput);-->
+    function showNotification(message, type) {
+        const notification = document.getElementById('notification');
+        notification.className = `alert alert-${type}`;
+        notification.textContent = message;
+        notification.classList.remove('d-none');
 
-<!--        var priceInput = document.createElement('input');-->
-<!--        priceInput.type = 'hidden';-->
-<!--        priceInput.name = 'products[][items.priceOrderPurchase]';-->
-<!--        priceInput.value = price;-->
-<!--        form.appendChild(priceInput);-->
-<!--    });-->
-<!--    function submitForm() {-->
-<!--        var supplier = document.getElementById('supplier').value;-->
-<!--        var items = []; // Populate this array with your items-->
+        // Hide the notification after 3 seconds
+        setTimeout(() => {
+            notification.classList.add('d-none');
+        }, 10000);
+    }
 
-<!--        var data = {-->
-<!--            supplier: supplier,-->
-<!--            items: items-->
-<!--        };-->
+    function resetForm() {
+        document.getElementById('purchaseOrderBody').innerHTML = '';
+        document.getElementById('totalAmount').textContent = '0';
+        document.getElementById('supplier').value = '';
+        document.getElementById('quantityInput').value = '';
+        document.getElementById('priceInput').value = '';
+    }
 
-<!--        fetch('/purchase-orders/add', {-->
-<!--            method: 'POST',-->
-<!--            headers: {-->
-<!--                'Content-Type': 'application/json',-->
-<!--            },-->
-<!--            body: JSON.stringify(data),-->
-<!--        })-->
-<!--            .then(response => response.json())-->
-<!--            .then(data => {-->
-<!--                console.log('Success:', data);-->
-<!--            })-->
-<!--            .catch((error) => {-->
-<!--                console.error('Error:', error);-->
-<!--            });-->
-<!--    }-->
-<!--</script>-->
+    document.getElementById('purchaseOrderForm').addEventListener('submit', submitForm);
 
+
+</script>
 </body>
 </html>

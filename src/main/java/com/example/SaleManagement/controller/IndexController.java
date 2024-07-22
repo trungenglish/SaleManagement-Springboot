@@ -2,6 +2,7 @@ package com.example.SaleManagement.controller;
 
 import com.example.SaleManagement.service.EmployeeService;
 import com.example.SaleManagement.service.ProductService;
+import com.example.SaleManagement.service.SupplierService;
 import com.example.SaleManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,10 @@ public class IndexController {
     @Autowired
     public EmployeeService employeeService;
 
+    @Autowired
+    public SupplierService supplierService;
+
+
     @GetMapping("/login")
     public String login(){
         return "login";
@@ -29,6 +34,7 @@ public class IndexController {
         model.addAttribute("countProducts", productService.countProducts());
         model.addAttribute("countUsers",userService.countUsers());
         model.addAttribute("countEmployees",employeeService.countEmployees());
+        model.addAttribute("countSuppliers",supplierService.countSuppliers());
         return "layouts/dashboard/index";
     }
 

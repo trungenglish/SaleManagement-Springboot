@@ -78,7 +78,7 @@
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed" data-bs-target="#employees" data-bs-toggle="collapse"
-                       aria-expanded="false"><i class="fa-solid fa-person pe-2"></i>
+                       aria-expanded="false"><i class="fa-solid fa-user pe-2"></i>
                         Employees
                     </a>
                     <ul id="employees" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -89,7 +89,7 @@
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed" data-bs-target="#suppliers" data-bs-toggle="collapse"
-                       aria-expanded="false"><i class="fa-solid fa-person pe-2"></i>
+                       aria-expanded="false"><i class="fa-solid fa-people-carry-box pe-2"></i>
                         Suppliers
                     </a>
                     <ul id="suppliers" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -100,7 +100,7 @@
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed" data-bs-target="#importGoods" data-bs-toggle="collapse"
-                       aria-expanded="false"><i class="fa-solid fa-person pe-2"></i>
+                       aria-expanded="false"><i class="fa-solid fa-file-import pe-2"></i>
                         Import goods
                     </a>
                     <ul id="importGoods" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -109,6 +109,31 @@
                         </li>
                         <li class="sidebar-item">
                             <a th:href="@{/purchase-orders/showFormPurchaseOrder}" class="sidebar-link">Purchase Order From Supplier</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-target="#Inventory" data-bs-toggle="collapse"
+                       aria-expanded="false"><i class="fa-solid fa-warehouse pe-2"></i>
+                        Inventory
+                    </a>
+                    <ul id="Inventory" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a th:href="@{/inventory/list}" class="sidebar-link">Inventory List</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-target="#orderProduct" data-bs-toggle="collapse"
+                       aria-expanded="false"><i class="fa-solid fa-file-import pe-2"></i>
+                        Import goods
+                    </a>
+                    <ul id="orderProduct" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a th:href="@{/}" class="sidebar-link">List Invoice</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a th:href="@{/orders/showFormOrder}" class="sidebar-link">Order Product</a>
                         </li>
                     </ul>
                 </li>

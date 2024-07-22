@@ -23,7 +23,7 @@ public class User {
     @Column(columnDefinition = "VARCHAR(225)")
     private String password;
 
-    @Column(columnDefinition = "NVARCHAR(50)")
+    @Column(columnDefinition = "VARCHAR(50)")
     private String name;
 
     @Column(columnDefinition = "VARCHAR(50)")
@@ -32,6 +32,6 @@ public class User {
     @Column(columnDefinition = "CHAR(10)")
     private String phone;
 
-    @Column(columnDefinition = "NVARCHAR(100)")
+    @Column(columnDefinition = "VARCHAR(100)")
     private String address;
 }

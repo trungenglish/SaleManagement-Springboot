@@ -17,10 +17,10 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idSupplier;
 
-    @Column(columnDefinition = "NVARCHAR(100)")
+    @Column(columnDefinition = "VARCHAR(100)")
     private String name;
 
-    @Column(columnDefinition = "NVARCHAR(100)")
+    @Column(columnDefinition = "VARCHAR(100)")
     private String address;
 
     @Column(columnDefinition = "CHAR(10)")

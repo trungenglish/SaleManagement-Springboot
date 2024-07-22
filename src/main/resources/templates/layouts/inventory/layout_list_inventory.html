@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>List Product</title>
+    <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/NavLeftSide.css">
+</head>
+<body>
+<div class="wrapper">
+    <!-- Content For Sidebar -->
+    <span th:replace="~{fragments/sidebar :: sidebar}"></span>
+
+    <div class="main">
+        <!-- Header -->
+        <span th:replace="~{fragments/header :: header}"></span>
+
+        <!-- Content For Main -->
+        <main class="content px-3 py-2">
+            <span th:replace="~{page/inventory/list_inventory :: content}"></span>
+        </main>
+        <a href="#" class="theme-toggle">
+            <i class="fa-regular fa-moon"></i>
+            <i class="fa-regular fa-sun"></i>
+        </a>
+    </div>
+</div>
+<script src="/js/bootstrap.bundle.js"></script>
+<script src="/js/NavLeftSide.js"></script>
+</body>
+</html>

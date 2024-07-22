@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Product</title>
+    <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/NavLeftSide.css">
+</head>
+<body>
+<div class="wrapper">
+    <!-- Content For Sidebar -->
+    <span th:replace="~{fragments/sidebar :: sidebar}"></span>
+
+    <div class="main">
+        <!-- Header -->
+        <span th:replace="~{fragments/header :: header}"></span>
+
+        <!-- Content For Main -->
+        <main class="content px-3 py-2" th:object="${purchaseOrder}">
+            <h2 class="text-center">Detail Purchase Order</h2>
+            <div class="card border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Detail Purchase Order</h5>
+                    <a th:href="@{/api/pdf/{id}(id=${purchaseOrder.idPurchaseOrder})}" type="submit" class="btn btn-danger mb-3 mt-1">PDF</a>
+                        <table class="table table-bordered border-primary">
+
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item : ${purchaseOrder.items}">
+                                <td th:text="${item.product.idPro}"></td>
+                                <td th:text="${item.product.namePro}"></td>
+                                <td th:text="${item.quantityItemOrderPurchase}"></td>
+                                <td th:text="${item.priceOrderPurchase}"></td>
+                                <td th:text="${item.priceOrderPurchase * item.quantityItemOrderPurchase}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="mb-3">
+                            <label class="fw-bold fs-4 form-label">Total Amount:</label>
+                            <span id="totalAmount" class="fs-5" th:text="${purchaseOrder.totalPurchase}">0</span>
+                        </div>
+
+                    <a th:href="@{/import-goods/list}" type="submit" class="btn btn-primary">Back To List</a>
+                </div>
+            </div>
+
+        </main>
+        <a href="#" class="theme-toggle">
+            <i class="fa-regular fa-moon"></i>
+            <i class="fa-regular fa-sun"></i>
+        </a>
+    </div>
+</div>
+<script src="/js/bootstrap.bundle.js"></script>
+<script src="/js/NavLeftSide.js"></script>
+</body>
+</html>

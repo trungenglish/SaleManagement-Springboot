@@ -29,7 +29,7 @@ public class EmployeeService {
         return employeesRepository.count();
     }
 
-    public Employee addEmployee(Employee request){
+    public void addEmployee(Employee request){
         Employee employee = new Employee();
 
         employee.setCccd(request.getCccd());
@@ -37,14 +37,14 @@ public class EmployeeService {
         employee.setEmail(request.getEmail());
         employee.setPhone(request.getPhone());
         employee.setPosition(request.getPosition());
-        return employeesRepository.save(employee);
+        employeesRepository.save(employee);
     }
 
     public Employee getEmployee(String cccd){
         return employeesRepository.findByCccd(cccd);
     }
 
-    public Employee updateEmployee(String cccd, Employee request){
+    public void updateEmployee(String cccd, Employee request){
         Employee employee = getEmployee(cccd);
 
         employee.setPhone(request.getPhone());
@@ -52,7 +52,7 @@ public class EmployeeService {
         employee.setPosition(request.getPosition());
         employee.setName(request.getName());
 
-        return employeesRepository.save(employee);
+        employeesRepository.save(employee);
     }
 
     public void deleteEmployee(String cccd){

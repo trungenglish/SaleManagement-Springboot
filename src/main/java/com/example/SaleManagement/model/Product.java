@@ -9,8 +9,6 @@ import lombok.Setter;
 import java.sql.Blob;
 import java.util.List;
 
-
-//thư viện lombook giúp tự động sinh ra các phương thức getter, setter, constructor, toString
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,20 +17,16 @@ import java.util.List;
 @Table(name = "DB_Product")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //id tự tăng
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPro;
 
     @Column(columnDefinition = "VARCHAR(50)")
     private String namePro;
 
-    @Column(columnDefinition = "INTEGER")
-    private int quantity;
-
     @Column(columnDefinition = "DECIMAL(19,2)")
     private double price;
 
-    //đánh dấu cột này có giá trị là text vì các trường String JPA định nghĩa là Varchar(255)
-    @Column(columnDefinition = "NVARCHAR(225)")
+    @Column(columnDefinition = "VARCHAR(225)")
     private String description;
 
     @Lob
@@ -48,4 +42,6 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<PurchaseOrderItem> purchaseOrderItems;
 
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private Inventory inventory;
 }

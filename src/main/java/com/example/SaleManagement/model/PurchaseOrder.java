@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,14 +22,14 @@ public class PurchaseOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPurchaseOrder;
 
-    @Column(columnDefinition = "DATETIME")
+    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime dateOrderPurchase;
 
-    @Column(columnDefinition = "DECIMAL(19,2)")
+    @Column(columnDefinition = "DECIMAL(30,2)")
     private double totalPurchase;
 
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
-    private List<PurchaseOrderItem> items;
+    private List<PurchaseOrderItem> items = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "idSupplier")

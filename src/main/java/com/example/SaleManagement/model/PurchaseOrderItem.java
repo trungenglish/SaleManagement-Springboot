@@ -23,8 +23,8 @@ public class PurchaseOrderItem {
     @Column(columnDefinition = "INTEGER")
     private int quantityItemOrderPurchase;
 
-    @ManyToOne
-    @JoinColumn(name = "idPurchaseOrder")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idPurchaseOrder", nullable = false)
     private PurchaseOrder purchaseOrder;
 
     @ManyToOne

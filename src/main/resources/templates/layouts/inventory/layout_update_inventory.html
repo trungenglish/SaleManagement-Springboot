@@ -17,29 +17,21 @@
         <span th:replace="~{fragments/header :: header}"></span>
 
         <!-- Content For Main -->
-        <main class="content px-3 py-2" th:object="${product}">
-            <h2 class="text-center">Detail Product</h2>
+        <main class="content px-3 py-2" th:object="${inventory}">
+            <h2 class="text-center">Update Product</h2>
             <div class="mb-3">
                 <label for="InputName" class="form-label">Name</label>
-                <input type="text" th:field="*{namePro}" class="w-75 form-control" id="InputName" disabled>
+                <input type="text" th:field="*{product.namePro}" class="w-75 form-control" id="InputName" disabled>
             </div>
             <div class="mb-3">
-                <label for="InputCategory" class="form-label">Category</label>
-                <input type="text" th:field="*{category}" class="w-75 form-control" id="InputCategory" disabled>
+                <label for="InputQuantity" class="form-label">Quantity</label>
+                <input type="text" th:field="*{quantity}" class="w-75 form-control" id="InputQuantity" disabled>
             </div>
             <div class="mb-3">
                 <label for="InputPrice" class="form-label">Price</label>
-                <input type="text" th:field="*{price}" class="w-75 form-control" id="InputPrice" disabled>
+                <input type="text" th:field="*{product.price}" class="w-75 form-control" id="InputPrice" disabled>
             </div>
-            <div class="mb-3">
-                <label for="InputDescription" class="form-label">Description</label>
-                <textarea type="text" th:field="*{description}" rows="3" class="w-75 form-control" id="InputDescription" disabled>
-                </textarea>
-            </div>
-            <div class="mb-3">
-                <img width="150px" height="150px" class="img-thumbnail"  th:src="@{/products/display(proId=${product.idPro})}" alt="ProductImage">
-            </div>
-            <a th:href="@{/products/list}" type="submit" class="btn btn-primary">Back To List</a>
+            <a th:href="@{/inventory/list}" type="submit" class="btn btn-primary">Back To List</a>
         </main>
         <a href="#" class="theme-toggle">
             <i class="fa-regular fa-moon"></i>

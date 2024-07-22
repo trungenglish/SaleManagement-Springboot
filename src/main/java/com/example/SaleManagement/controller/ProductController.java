@@ -70,7 +70,7 @@ public class ProductController {
     }
 
     @GetMapping("/delete")
-    public String deleteProduct(@RequestParam("proId") int id){
+    public String deleteProduct(@RequestParam("idPro") int id){
         productService.deleteProduct(id);
         return "redirect:/products/list";
     }

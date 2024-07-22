@@ -20,6 +20,10 @@ public class SupplierService {
     @Autowired
     private SupplierRepository supplierRepository;
 
+    public long countSuppliers(){
+        return supplierRepository.count();
+    }
+
     public List<Supplier> getListSupplier(){
         return supplierRepository.findAll();
     }

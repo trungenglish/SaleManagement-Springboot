@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>List Product</title>
+    <script src="https://kit.fontawesome.com/58b8b766ae.js" crossorigin="anonymous"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/NavLeftSide.css">
+</head>
+<style>
+    .card-custom {
+        height: 500px; /* Adjust based on your preference */
+        width: 250px; /* Adjust based on your preference */
+    }
+
+    .card-img-top-custom {
+        height: 200px; /* Adjust based on your preference */
+        object-fit: cover; /* This makes the image cover the area without stretching */
+    }
+</style>
+<body>
+<div class="wrapper">
+    <!-- Content For Sidebar -->
+    <span th:replace="~{fragments/sidebar :: sidebar}"></span>
+
+    <div class="main">
+        <!-- Header -->
+        <span th:replace="~{fragments/header :: header}"></span>
+
+        <!-- Content For Main -->
+        <main class="content px-3 py-2">
+            <div class="container-fluid">
+                <!-- Thông báo -->
+                <div id="notification" class="alert d-none" role="alert"></div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col" th:each="tempProduct: ${products}">
+                                <div class="card h-100 card-custom product-card"
+                                     style="cursor: pointer;">
+                                    <img th:src="@{/products/display(proId=${tempProduct.idPro})}" class="card-img-top-custom card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 th:text="${tempProduct.namePro}" class="card-title">Card title</h5>
+                                        <p th:text="${tempProduct.description}" class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                        <h5 th:text="${tempProduct.price}" class="card-title"></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0">
+                            <!-- Nội dung cột 2 -->
+                            <div class="card-body">
+                                <h5 class="card-title">Create Order For User</h5>
+
+                                <form id="orderForm" method="post">
+                                    <div class="mb-3">
+                                        <label class="form-label">User</label>
+                                        <select id="user" class="form-select" aria-label="Default select example">
+                                            <option value="" selected>Choose User Buy</option>
+                                            <option
+                                                    th:value="${tempUser.idUser}"
+                                                    th:each="tempUser: ${users}"
+                                                    th:text="${tempUser.name}"></option>
+                                        </select>
+                                    </div>
+                                    <table class="table">
+                                        <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="order">
+                                        </tbody>
+                                    </table>
+                                    <div class="mb-3">
+                                        <label class="form-label">Total Amount: </label>
+                                        <span id="totalAmount">0</span>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" onclick="submitForm(event)">Buy</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <a href="#" class="theme-toggle">
+            <i class="fa-regular fa-moon"></i>
+            <i class="fa-regular fa-sun"></i>
+        </a>
+    </div>
+</div>
+
+<script src="/js/bootstrap.bundle.js"></script>
+<script src="/js/NavLeftSide.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const productCards = document.querySelectorAll('.product-card');
+
+        productCards.forEach(card => {
+            card.addEventListener('click', function () {
+                const namePro = card.querySelector('.card-body h5:first-child').textContent;
+                const price = parseFloat(card.querySelector('.card-body h5:nth-child(3)').textContent);
+
+                addProductToOrder(namePro, price);
+            });
+        });
+    });
+
+    function addProductToOrder(name, price) {
+        // Kiểm tra nếu sản phẩm đã tồn tại trong đơn hàng
+        let orderRow = document.querySelector(`#order tr[data-name="${name}"]`);
+        if (orderRow) {
+            // Nếu sản phẩm đã tồn tại, tăng số lượng lên 1
+            let quantityCell = orderRow.querySelector('.quantity');
+            let quantity = parseInt(quantityCell.textContent) + 1;
+            quantityCell.textContent = quantity;
+
+            // Cập nhật thành tiền
+            let totalCell = orderRow.querySelector('.total');
+            totalCell.textContent = (quantity * price).toFixed(2);
+        } else {
+            // Nếu sản phẩm chưa tồn tại, thêm dòng mới vào bảng
+            let tbody = document.getElementById('order');
+            let tr = document.createElement('tr');
+            tr.setAttribute('data-name', name);
+
+            tr.innerHTML = `
+            <td>${name}</td>
+            <td class="quantity">1</td>
+            <td class="total">${price.toFixed(2)}</td>
+            <td><button type="button" class="btn btn-danger btn-sm remove-btn">Remove</button></td>
+        `;
+            tbody.appendChild(tr);
+
+            // Add event listener for remove button
+            tr.querySelector('.remove-btn').addEventListener('click', function () {
+                removeRow(tr);
+            });
+        }
+
+        // Cập nhật tổng tiền
+        updateTotalAmount();
+    }
+
+    function updateTotalAmount() {
+        let totalAmount = 0;
+        let rows = document.querySelectorAll('#order .total');
+        rows.forEach(row => {
+            totalAmount += parseFloat(row.textContent);
+        });
+        document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+    }
+
+    function removeRow(row) {
+        const totalAmountSpan = document.getElementById('totalAmount');
+        const totalAmount = parseFloat(totalAmountSpan.textContent);
+        const rowTotal = parseFloat(row.querySelector('.total').textContent);
+
+        // Update total amount
+        totalAmountSpan.textContent = (totalAmount - rowTotal).toFixed(2);
+
+        // Remove the row
+        row.remove();
+    }
+
+    function submitForm(event) {
+        event.preventDefault();
+
+        const user = document.getElementById('user').value;
+        const orderDetail = [];
+        const rows = document.getElementById('order').getElementsByTagName('tr');
+
+        for (const row of rows) {
+            const name = row.querySelector('td:first-child').textContent;
+            const quantity = row.querySelector('.quantity').textContent;
+            const total = row.querySelector('.total').textContent;
+
+            orderDetail.push({
+                product: { namePro: name },
+                price: parseFloat(total) / parseInt(quantity), // Lấy giá từ tổng tiền chia cho số lượng
+                quantity: parseInt(quantity)
+            });
+        }
+
+        const data = {
+            user: {     idUser: user },
+            items: orderDetail,
+            dateOrder: new Date().toISOString()
+        };
+
+        fetch('/api/order/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.ok) {
+                showNotification('Order saved successfully', 'success');
+                resetForm();
+            } else {
+                showNotification('Failed to save order', 'danger');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            showNotification('Error occurred while saving order', 'danger');
+        });
+    }
+
+    function showNotification(message, type) {
+        const notification = document.getElementById('notification');
+        notification.className = `alert alert-${type}`;
+        notification.textContent = message;
+        notification.classList.remove('d-none');
+
+        // Hide the notification after 10 seconds
+        setTimeout(() => {
+            notification.classList.add('d-none');
+        }, 10000);
+    }
+
+    function resetForm() {
+        document.getElementById('order').innerHTML = '';
+        document.getElementById('totalAmount').textContent = '0';
+        document.getElementById('user').value = '';
+    }
+
+</script>
+
+</body>
+</html>

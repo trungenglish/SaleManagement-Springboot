@@ -10,7 +10,7 @@ public class ProductDto {// chứa dữ liệu từ form gửi xuống tránh vi
     private  int idPro;
     private String namePro;
     private double price;
-    private int quantity;
     private Category category;
     private String description;
+
 }

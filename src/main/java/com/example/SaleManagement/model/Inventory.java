@@ -6,28 +6,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "DB_OrderDetail")
-public class OrderDetail {
+@Table(name = "DB_Inventory")
+public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idOrderDetail;
+    private int idInventory;
+
+    @OneToOne
+    @JoinColumn(name = "idPro")
+    private Product product;
 
     @Column(columnDefinition = "INTEGER")
     private int quantity;
 
-    @Column(columnDefinition = "DECIMAL(19,2)")
-    private double price;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idOrder", nullable = false)
-    private Order order;
-
-    @ManyToOne
-    @JoinColumn(name = "idPro")
-    private Product product;
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime lastUpdated;
 }

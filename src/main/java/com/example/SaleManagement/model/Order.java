@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,16 +20,19 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idOrder;
 
-    @Column(columnDefinition = "DATETIME")
+    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime dateOrder;
 
-    @Column(columnDefinition = "DECIMAL(19,4)")
+    @Column(columnDefinition = "DECIMAL(30,4)")
     private double total;
 
-    @Column(columnDefinition = "NVARCHAR(50)")
-    private  String status;
+    @Column(columnDefinition = "VARCHAR(50)")
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "idUser")
     private User user;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderDetail> items = new ArrayList<>();
 }

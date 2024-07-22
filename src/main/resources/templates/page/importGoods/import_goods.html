@@ -33,16 +33,12 @@
                 <tr th:each="tempImportGoods: ${importGoods}">
                     <td th:text="${tempImportGoods.idPurchaseOrder}"></td>
                     <td th:text="${tempImportGoods.supplier.name}"></td>
-                    <td th:text="${tempImportGoods.date}"></td>
-                    <td th:text="${tempImportGoods.total}"></td>
+                    <td th:text="${tempImportGoods.dateOrderPurchase}"></td>
+                    <td th:text="${tempImportGoods.totalPurchase}"></td>
                     <!-- Add Update and Delete Button -->
-                    <td >
-                        <a th:href="@{/import-goods/formUpdate(poId=${tempImportGoods.idPurchaseOder})}" class="btn btn-info btn-sm">
-                            Update
-                        </a>
-                        <a th:href="@{/import-goods/delete(poId=${tempImportGoods.idPurchaseOder})}" class="btn btn-danger btn-sm"
-                           onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">
-                            Delete
+                    <td>
+                        <a th:href="@{/import-goods/showDetail(purchaseOrderId=${tempImportGoods.idPurchaseOrder})}" class="btn btn-primary btn-sm">
+                            Detail
                         </a>
                     </td>
                 </tr>
