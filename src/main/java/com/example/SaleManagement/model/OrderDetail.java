@@ -23,11 +23,13 @@ public class OrderDetail {
     @Column(columnDefinition = "DECIMAL(19,2)")
     private double price;
 
+    @ManyToOne
+    @JoinColumn(name = "idPro")
+    private Product product;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idOrder", nullable = false)
     private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "idPro")
-    private Product product;
+
 }

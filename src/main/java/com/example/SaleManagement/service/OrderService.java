@@ -2,15 +2,26 @@ package com.example.SaleManagement.service;
 
 import com.example.SaleManagement.model.Order;
 import com.example.SaleManagement.model.OrderDetail;
+import com.example.SaleManagement.model.PurchaseOrder;
 import com.example.SaleManagement.repository.OrdersRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
     @Autowired
     private OrdersRepository ordersRepository;
+
+    public Order getOrder(int id){
+        return ordersRepository.findByIdOrder(id);
+    }
+
+    public List<Order> getListInvoice(){
+        return ordersRepository.findAll();
+    }
 
     @Transactional
     public void addOrder(Order request){

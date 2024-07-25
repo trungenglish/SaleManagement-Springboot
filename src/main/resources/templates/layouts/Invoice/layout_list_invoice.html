@@ -18,64 +18,7 @@
 
         <!-- Content For Main -->
         <main class="content px-3 py-2">
-            <span th:replace="~{page/inovice/list_invoice :: content}"></span>
-            <div class="modal fade" id="ModalCenter" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog ">
-                    <form action="#" th:action="@{/products/add}"
-                          th:object="${product}" method="Post" enctype="multipart/form-data">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="ModalCenterTitle">Add Product</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="InputName" class="form-label">Product Name</label>
-                                    <input type="text" th:field="*{namePro}" class="form-control" id="InputName"
-                                           aria-describedby="name" required autocomplete="off"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="InputPrice" class="form-label">Price</label>
-                                    <input type="number" min="0" th:field="*{price}" class="form-control" id="InputPrice"
-                                           aria-describedby="emailHelp" required autocomplete="off"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Category</label>
-                                    <select class="form-select" th:field="*{category}" aria-label="Default select example">
-                                        <option value="" selected>Choose Category</option>
-                                        <option
-                                                th:value="${tempCategory.idCate}"
-                                                th:each="tempCategory: ${categories}"
-                                                th:text="${tempCategory.name}"></option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="InputQuantity" class="form-label">Quantity</label>
-                                    <input type="number" min="0" th:field="*{quantity}" class="form-control" id="InputQuantity"
-                                           aria-describedby="quantity"
-                                           required autocomplete="off"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="InputDescription" class="form-label">Description</label>
-                                    <textarea class="form-control" aria-describedby="description" th:field="*{description}" id="InputDescription" rows="3">
-                                    </textarea>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="file" class="form-control" id="inputGroupFile" name="imageFile" accept="image/jpeg, image/png">
-                                    <label class="input-group-text" for="inputGroupFile">Upload</label>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                    </button>
-                                    <button id="submitButton" type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <span th:replace="~{page/invoice/list_invoice :: content}"></span>
         </main>
         <a href="#" class="theme-toggle">
             <i class="fa-regular fa-moon"></i>

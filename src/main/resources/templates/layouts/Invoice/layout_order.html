@@ -41,9 +41,12 @@
                                      style="cursor: pointer;">
                                     <img th:src="@{/products/display(proId=${tempProduct.idPro})}" class="card-img-top-custom card-img-top" alt="...">
                                     <div class="card-body">
-                                        <h5 th:text="${tempProduct.namePro}" class="card-title">Card title</h5>
+                                        <div class="flex ">
+                                            <span>#</span>
+                                            <span th:text="${tempProduct.idPro}" class="card-title product-id-value"></span>                                        </div>
+                                        <h5 th:text="${tempProduct.namePro}" class="card-title product-name">Card title</h5>
                                         <p th:text="${tempProduct.description}" class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        <h5 th:text="${tempProduct.price}" class="card-title"></h5>
+                                        <h5 th:text="${tempProduct.price}" class="card-title product-price"></h5>
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +57,6 @@
                             <!-- Nội dung cột 2 -->
                             <div class="card-body">
                                 <h5 class="card-title">Create Order For User</h5>
-
                                 <form id="orderForm" method="post">
                                     <div class="mb-3">
                                         <label class="form-label">User</label>
@@ -69,6 +71,7 @@
                                     <table class="table">
                                         <thead class="table-dark">
                                         <tr>
+                                            <th scope="col">#</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Quantity</th>
                                             <th scope="col">Total</th>
@@ -106,15 +109,16 @@
 
         productCards.forEach(card => {
             card.addEventListener('click', function () {
-                const namePro = card.querySelector('.card-body h5:first-child').textContent;
-                const price = parseFloat(card.querySelector('.card-body h5:nth-child(3)').textContent);
+                const idPro = card.querySelector('.product-id-value').textContent;
+                const namePro = card.querySelector('.product-name').textContent;
+                const price = parseFloat(card.querySelector('.product-price').textContent);
 
-                addProductToOrder(namePro, price);
+                addProductToOrder(namePro, price, idPro);
             });
         });
     });
 
-    function addProductToOrder(name, price) {
+    function addProductToOrder(name, price, id) {
         // Kiểm tra nếu sản phẩm đã tồn tại trong đơn hàng
         let orderRow = document.querySelector(`#order tr[data-name="${name}"]`);
         if (orderRow) {
@@ -132,7 +136,9 @@
             let tr = document.createElement('tr');
             tr.setAttribute('data-name', name);
 
+
             tr.innerHTML = `
+            <td class="id">${id}</td>
             <td>${name}</td>
             <td class="quantity">1</td>
             <td class="total">${price.toFixed(2)}</td>
@@ -175,27 +181,31 @@
         event.preventDefault();
 
         const user = document.getElementById('user').value;
+        if (!user) {  // Kiểm tra nếu người dùng chưa được chọn
+            showNotification('Please select a user to proceed', 'warning');
+            return;
+        }
         const orderDetail = [];
         const rows = document.getElementById('order').getElementsByTagName('tr');
 
         for (const row of rows) {
-            const name = row.querySelector('td:first-child').textContent;
+            const id = row.querySelector('.id').textContent;
             const quantity = row.querySelector('.quantity').textContent;
             const total = row.querySelector('.total').textContent;
 
             orderDetail.push({
-                product: { namePro: name },
+                product: { idPro : id },
                 price: parseFloat(total) / parseInt(quantity), // Lấy giá từ tổng tiền chia cho số lượng
                 quantity: parseInt(quantity)
             });
         }
 
         const data = {
-            user: {     idUser: user },
+            user: { idUser: user },
             items: orderDetail,
             dateOrder: new Date().toISOString()
         };
-
+        console.log('Data to send:', JSON.stringify(data));
         fetch('/api/order/add', {
             method: 'POST',
             headers: {

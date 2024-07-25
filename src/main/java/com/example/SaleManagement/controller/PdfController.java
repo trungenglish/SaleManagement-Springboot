@@ -17,12 +17,25 @@ public class PdfController {
     @Autowired
     private PdfService pdfService;
 
-    @GetMapping("pdf/{purchaseOrderId}")
-    public ResponseEntity<InputStreamResource> downloadPdf(@PathVariable int purchaseOrderId) {
-        ByteArrayInputStream pdf = pdfService.createPdf(purchaseOrderId);
+    @GetMapping("pdfPurchaseOrder/{purchaseOrderId}")
+    public ResponseEntity<InputStreamResource> downloadPdfPurchaseOrder(@PathVariable int purchaseOrderId) {
+        ByteArrayInputStream pdf = pdfService.createPdfPurchaseOrder(purchaseOrderId);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=purchase_order.pdf");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(pdf));
+    }
+
+    @GetMapping("pdfOrder/{orderId}")
+    public ResponseEntity<InputStreamResource> downloadPdfOrder(@PathVariable int orderId) {
+        ByteArrayInputStream pdf = pdfService.createPdfOrder(orderId);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=Invoice.pdf");
 
         return ResponseEntity.ok()
                 .headers(headers)

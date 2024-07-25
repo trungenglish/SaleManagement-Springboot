@@ -30,14 +30,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="tempOrder: ${order}">
+                <tr th:each="tempOrder: ${invoices}">
                     <td th:text="${tempOrder.idOrder}"></td>
                     <td th:text="${tempOrder.user.name}"></td>
                     <td th:text="${tempOrder.dateOrder}"></td>
                     <td th:text="${tempOrder.total}"></td>
                     <!-- Add Update and Delete Button -->
                     <td>
-                        <a th:href="@{/import-goods/showDetail(purchaseOrderId=${tempImportGoods.idPurchaseOrder})}" class="btn btn-primary btn-sm">
+                        <a th:href="@{/orders/showDetail(orderId=${tempOrder.idOrder})}" class="btn btn-primary btn-sm">
                             Detail
                         </a>
                     </td>
